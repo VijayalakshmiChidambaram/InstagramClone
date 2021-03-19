@@ -12,7 +12,7 @@ public class parseApplication extends Application {
         super.onCreate();
         //Register Parse models
         ParseObject.registerSubclass(Post.class);
-        
+
         Parse.initialize(new  Parse.Configuration.Builder(this)
                 .applicationId("8LdMNhDvpaNqx0gr8E0pVp8xM3gTtETWEtXOviDq")
                 .clientKey("ngJBqvbIPecxNrtiXh8VJDOAGVMll9Wo8JhjPzDb")// should correspond to Application Id env variable// should correspond to Client key env variable
