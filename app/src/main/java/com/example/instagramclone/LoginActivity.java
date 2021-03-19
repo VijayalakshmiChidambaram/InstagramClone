@@ -63,6 +63,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    //ParseUser.logOut();
+    //ParseUser currentUser = ParseUser.getCurrentUser();
     private void goMainActivity() {
         Intent i = new Intent (this, MainActivity.class);
         startActivity(i);
