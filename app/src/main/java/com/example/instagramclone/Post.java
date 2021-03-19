@@ -1,7 +1,9 @@
 package com.example.instagramclone;
 
 import com.parse.ParseClassName;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 @ParseClassName("Post")
 public class Post extends ParseObject {
@@ -16,6 +18,22 @@ public class Post extends ParseObject {
 
     public void setDescription(String description) {
         put(Key_Description,description);
+    }
+
+    public ParseFile getImage() {
+        return getParseFile(Key_Image);
+    }
+
+    public void setImage(ParseFile parseFile) {
+        put(Key_Image, parseFile);
+    }
+
+    public ParseUser getUser() {
+        return getParseUser(Key_User);
+    }
+
+    public void setImage(ParseUser user) {
+        put(Key_User, user);
     }
 
 }
