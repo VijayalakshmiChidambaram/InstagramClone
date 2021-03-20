@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -64,10 +65,16 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Description cannot be empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (photofile == null || ivPostImage.getDrawable() == null) {
+                    Toast.makeText(MainActivity.this, "There is no image..", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                savePost(description, currentUser);
+                savePost(description, currentUser, photofile);
             }
         });
+
+        queryPosts();
     }
 
     private void launchCamera() {
@@ -95,6 +102,25 @@ public class MainActivity extends AppCompatActivity {
     }
     //Way to get the picture taken by the user
 
+    // Returns the File for a photo stored on disk given the fileName
+    //Find an URi - String unambiguously identifies the file(resource/Photo we captured)
+    private File getPhotoFileUri(String fileName) {
+        // Get safe storage directory for photos
+        // Use `getExternalFilesDir` on Context to access package-specific directories.
+        // This way, we don't need to request external read/write runtime permissions.
+        File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
+
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
+            Log.d(TAG, "failed to create directory");
+        }
+
+        // Return the file target for the photo based on filename
+        File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
+
+        return file;
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -113,29 +139,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // Returns the File for a photo stored on disk given the fileName
-    //Find an URi - String unambiguously identifies the file(resource/Photo we captured)
-    public File getPhotoFileUri(String fileName) {
-        // Get safe storage directory for photos
-        // Use `getExternalFilesDir` on Context to access package-specific directories.
-        // This way, we don't need to request external read/write runtime permissions.
-        File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
 
-        // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
-            Log.d(TAG, "failed to create directory");
-        }
-
-        // Return the file target for the photo based on filename
-        File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
-
-        return file;
-    }
-
-    private void savePost(String description, ParseUser currentUser) {
+    private void savePost(String description, ParseUser currentUser, File photofile) {
         Post post = new Post();
         post.setDescription(description);
         //post.setImage();
+        post.setImage(new ParseFile(photofile));
 
         post.setUser(currentUser);
         post.saveInBackground(new SaveCallback() {
@@ -147,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Log.i(TAG, " Post was saved successfully !!");
                 etDescription.setText("");
+                ivPostImage.setImageResource(0);
             }
             });
 
