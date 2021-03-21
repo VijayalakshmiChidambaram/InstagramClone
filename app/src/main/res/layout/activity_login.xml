@@ -6,10 +6,11 @@
     android:layout_margin="16dp"
     android:orientation="vertical">
 
+
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:backgroundTint="@android:color/holo_orange_light"
         android:ems="10"
@@ -33,4 +34,32 @@
         android:layout_weight="1"
         android:background="@android:color/holo_orange_light"
         android:text="Login" />
+
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_weight="1"
+        android:background="@android:color/holo_orange_light"
+        android:text="Sign Up" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="167dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="95dp"
+        android:layout_marginTop="65dp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Instagram"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@android:color/holo_orange_light"
+        android:textColorHighlight="@android:color/holo_orange_light"
+        android:textSize="36sp"
+        android:textStyle="italic" />
+
+
 </LinearLayout>
