@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -34,9 +35,15 @@ import com.parse.SaveCallback;
 import java.io.File;
 import java.util.List;
 
+import fragments.ComposeFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
+
+    //Fragment Layout Manager responsible for managing the fragments to display in the screen
+    final FragmentManager fragmentManager = getSupportFragmentManager();
+
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -54,21 +61,29 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment;
                 switch (menuItem.getItemId()) {
                     case R.id.action_home:
+                        // Update Profile
                         Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_SHORT).show();
+                        fragment = new ComposeFragment();
                         break;
                     case R.id.action_compose:
                         Toast.makeText(MainActivity.this, "Compose",Toast.LENGTH_SHORT).show();
+                        fragment = new ComposeFragment();
                         break;
                     case R.id.action_profile:
                     default:
+                        // Update Profile
                         Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_SHORT).show();
+                        fragment = new ComposeFragment();
                         break;
                 }
-                //fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+                //To replace current fragment with another
+                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
                 return true;
             }
         });
-
+        //Item to default
+        // Set default selection
+        bottomNavigationView.setSelectedItemId(R.id.action_home);
         //queryPosts();
     }
 
