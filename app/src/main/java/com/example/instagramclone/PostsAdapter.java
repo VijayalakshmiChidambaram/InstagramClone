@@ -10,12 +10,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.parse.ParseFile;
+
 import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
 
     private Context context;
     private List<Post> posts;
+
+    public PostsAdapter(Context context, List<Post> posts) {
+        this.context = context;
+        this.posts = posts;
+
+    }
 
     @NonNull
     @Override
@@ -55,7 +64,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             //Bind the post data into view elements
             tvDescription.setText(post.getDescription());
             tvUserName.setText(post.getUser().getUsername());
-
+            ParseFile image = post.getImage();
+            if (image != null) {
+                Glide.with(context).load(image.getUrl()).into(ivImage);
+            }
         }
     }
 }
