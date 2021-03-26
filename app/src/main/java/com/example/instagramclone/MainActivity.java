@@ -36,6 +36,7 @@ import java.io.File;
 import java.util.List;
 
 import fragments.ComposeFragment;
+import fragments.PostsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_home:
                         // Update Profile
                         Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_SHORT).show();
-                        fragment = new ComposeFragment();
+                        fragment = new PostsFragment();
                         break;
                     case R.id.action_compose:
                         Toast.makeText(MainActivity.this, "Compose",Toast.LENGTH_SHORT).show();
