@@ -53,6 +53,7 @@ public class PostsFragment extends Fragment {
 
         //Create Layout for one row in the list
 
+
         //Create adapter
         //Create Data Source
         //Set adapter on the RV
